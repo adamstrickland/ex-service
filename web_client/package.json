@@ -1,21 +1,25 @@
 {
-  "name": "react-tutorial",
+  "name": "ex-service.web_client",
   "version": "0.0.0",
-  "description": "Code from the React tutorial.",
+  "description": "Web client for the ex-service spike",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.4.3",
     "express": "^4.4.5",
-    "socket.io": "^1.3.5"
+    "i": "^0.3.3",
+    "nodemon": "^1.3.7",
+    "socket.io": "^1.3.5",
+    "socket.io-client": "^1.3.5",
+    "watchify": "^3.2.2"
   },
   "devDependencies": {
-    "babelify": "^6.1.2",
-    "browserify": "^10.2.4",
-    "socket.io-client": "^1.3.5"
+    "reactify": "^1.1.1",
+    "browserify": "^10.2.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js",
+    "build": "watchify src/app.js -t [reactify --es6] -v -o build/app.js"
   },
   "repository": {
     "type": "git",

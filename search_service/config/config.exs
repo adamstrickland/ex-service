@@ -7,7 +7,9 @@ use Mix.Config
 
 # Configures the endpoint
 config :search_service, SearchService.Endpoint,
-  url: [host: "localhost"],
+  # http: [port: {:system, "PORT"}],
+  http: [host: "localhost", port: 9292],
+  url: [host: "localhost", port: 9292],
   root: Path.dirname(__DIR__),
   secret_key_base: "GNzWyLmvsT16BMLH/Au01qi/HPVgj/fg2Gc9fYVoUFMGh//3grwA3zSTExI/dKF8",
   debug_errors: false,

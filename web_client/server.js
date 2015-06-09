@@ -15,6 +15,10 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+// var socket = require('socket.io');
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -22,6 +26,23 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/build', express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+// app.use(req, res, next, function() {
+//   // res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+//   res.setHeader('Access-Control-Allow-Origin', 'https://quivering-kitten-9504.dev.wellmatchhealth.com');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET');
+//   // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// });
+
+// app.get('/socket.io', function(req, res){
+// });
+
+app.get('/events', function(req, res){
+});
 
 app.get('/comments.json', function(req, res) {
   fs.readFile('comments.json', function(err, data) {
@@ -42,9 +63,14 @@ app.post('/comments.json', function(req, res) {
   });
 });
 
-
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });
 
+server.listen(4001);
 
+io.sockets.on('connection', function (socket) {
+  // stream.on('tweet', function(tweet) {
+  //   socket.emit('info', { tweet: tweet});
+  // });
+});
