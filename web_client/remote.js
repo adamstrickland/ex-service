@@ -10,37 +10,27 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-var express = require('express');
-var app = express();
-var server = require('http').Server(app);
-var path = require('path');
-// var io = require('socket.io')(server);
+var app = require('express')();
 
-server.listen(3000);
-
-// console.log("using API at "+process.env.API_HOST);
-
-
-app.set('views', __dirname + '/views')
-app.set('view engine', 'jsx')
-app.engine('jsx', require('express-react-views').createEngine());
-
-// app.use('/build', express.static(path.join(__dirname, 'build')));
-app.get('/build/*', function (req, res) {
-  res.sendFile(__dirname + req.path);
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  next();
 });
 
-// app.get('/', function (req, res) { res.render('index', { api_host: process.env.API_HOST }); });
-app.get('/', function (req, res) { res.sendFile(__dirname + '/public/index.html'); });
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
-// io.on('connection', function (socket) {
-//   socket.emit('news', { hello: 'world' });
-//   socket.on('my other event', function (data) {
-//     console.log(data);
-//   });
-// });
+server.listen(4000);
+
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
 
 // var fs = require('fs');
+// var path = require('path');
 // var express = require('express');
 // var bodyParser = require('body-parser');
 // var app = express();
