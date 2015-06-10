@@ -21,6 +21,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
+    "remote": "nodemon remote.js node-api.foo.com 4000",
     "build": "watchify src/app.js -t [reactify --es6] -v -o build/app.js"
   },
   "repository": {
